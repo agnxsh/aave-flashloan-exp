@@ -20,3 +20,4 @@ abstract contract FlashLoanReceiverBase is IFlashLoanReceiver {
         LENDING_POOL = ILendingPool(provider.getLendingPool());
     }
 }
+
