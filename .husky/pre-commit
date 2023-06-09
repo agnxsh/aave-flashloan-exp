@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm run hardhat:lint
+npm run hardhat:prettier
+npm run hardhat:prettier
+slither solidity-defi-uniswap-tokens/contracts/*.sol
