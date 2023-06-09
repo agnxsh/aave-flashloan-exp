@@ -6,7 +6,7 @@ import "./interfaces/aave/FlashLoanReceiverBase.sol";
 
 abstract contract TestAaveFlashLoan is FlashLoanReceiverBase {
     using SafeMath for uint;
-
+    event Log (string message, uint value);
     constructor (ILendingPoolAddressesProvider _addressProvider)
         FlashLoanReceiverBase(_addressProvider)
     {}
@@ -47,7 +47,25 @@ abstract contract TestAaveFlashLoan is FlashLoanReceiverBase {
         );
     }
 
-    function executeOperation() external  returns (bool){
+    function executeOperation(
+        address[] calldata assets,
+        uint[] calldata amounts,
+        uint[] calldata premiums,
+        address initiator,
+        bytes calldata params
+    ) external returns (bool){
+
+        
+        //the primary function for writing arbitrage, liquidation, defi exploits, etc
+        //repay Aave
+        uint _assetslen = assets.length;
+        for (uint i = 0; i < _assetslen; i++ ){
+            emit Log("borrowed", amounts[i]);
+            emit Log("fee", premiums[i]);
+
+            uint amountOwing = amounts[i].add(premiums[i]);
+            IERC20(assets[i]).approve(address(LENDING_POOL), amountOwing);
+        }
         return true;
     }
 }

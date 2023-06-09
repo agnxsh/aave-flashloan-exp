@@ -1,3 +1,3 @@
 import { expect } from "chai";
 
-describe("TEST_SUITE", function () {});
+const BN = require("bn.js");
